@@ -104,6 +104,11 @@ function executeEvents() {
 		// attach events for online and off-line detection
 		document.addEventListener("online",  onOnline,  false);
 		document.addEventListener("offline", onOffline, false);
+		
+		// attach events for pause and resume detection
+		document.addEventListener("pause", onPause, false);
+		document.addEventListener("resume", onResume, false);
+		
 		// set a timer to check the network status
 		internetInterval = window.setInterval(function() {
 			if (navigator.network.connection.type != Connection.NONE) {
@@ -135,6 +140,19 @@ function onOnline() {
 }
 function onOffline() {
 	isConnected = false;
+}
+
+function onPause() {
+	isPhoneGapReady = false;
+	// clear the Internet check interval
+	window.clearInterval(internetInterval);
+}
+
+function onResume() {
+	// don't run if phonegap is already ready
+	if (isPhoneGapReady == false) {
+		init(currentUrl);
+	}
 }
 
 //This gets called by jQuery mobile when the page has loaded
