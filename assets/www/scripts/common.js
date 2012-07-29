@@ -132,7 +132,6 @@ function executeCallback() {
 		if(typeof window['on' + currentPage + 'Load'] == 'function') {
 			window['on' + currentPage + 'Load']();
 		}
-		
 	}
 }
 function onOnline() {
